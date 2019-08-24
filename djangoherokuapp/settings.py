@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['glicko-djangoapp.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'glicko.apps.GlickoConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -6,3 +6,4 @@ pytz==2019.2
 sqlparse==0.3.0
 whitenoise==4.1.3
 django_heroku
+requests
