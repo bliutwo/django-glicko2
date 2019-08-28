@@ -33,7 +33,7 @@ def results(request):
     for t in sorted_e:
         string = t[0]
         string += ", "
-        string += str(t[1])
+        string += ("%.2f" % t[1])
         rankings.append(string)
     context= {}
     context['rankings'] = rankings
