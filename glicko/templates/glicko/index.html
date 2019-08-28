@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'glicko/style.css' %}">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The People's Ranking</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>The People's Ranking</h1>
+    </header>
+
+    <!-- <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our team</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+
+      A Search form is another commmon non-linear way to navigate through a website.
+
+      <form>
+        <input type="search" name="q" placeholder="Search query">
+        <input type="submit" value="Go!">
+      </form>
+    </nav> -->
+
+    <p>Currently only works with Glicko-2 and Challonge.</p>
+
+    <form action="/my-handling-form-page" method="post">
+      <div>
+        <label for="name">Username:</label>
+        <input type="text" id="name" name="user_name">
+      </div>
+      <div>
+        <label for="apikey">API-key:</label>
+        <input type="password" id="apikey" name="user_apikey">
+      </div>
+      <!-- TODO: make the radio buttons aligned -->
+      <!-- <div>
+        <label for="systemChoice1">Glicko-2</label>
+        <input type="radio" id="systemChoice1"
+         name="rankingsystem" value="glicko2" checked>
+
+        <label for="systemChoice2">ELO</label>
+        <input type="radio" id="systemChoice2"
+         name="rankingsystem" value="elo">
+
+        <label for="systemChoice3">TrueSkill</label>
+        <input type="radio" id="systemChoice3"
+         name="rankingsystem" value="trueskill">
+      </div> -->
+      <div>
+        <label for="ratingsystem">Rating System:</label>
+        <select id="simple" name="simple">
+          <option>Glicko-2</option>
+          <option>ELO</option>
+          <option>TrueSkill</option>
+        </select>
+        <!-- <select multiple id="multi" name="multi">
+          <option>Glicko-2</option>
+          <option>ELO</option>
+          <option>TrueSkill</option>
+        </select> -->
+      </div>
+      <!-- TODO: change width and height of form box using css: http://www.tagindex.net/css/form/width_height.html -->
+      <div>
+        <label for="bracket-urls">Bracket URLs:</label>
+        <textarea id="bracket-urls" name="user_bracket-urls"></textarea>
+      </div>
+      <div class="button">
+        <button type="submit">Get rankings!</button>
+      </div>
+    </form>
+
+    <!-- (
+
+    Option select between:
+
+    - glicko
+    - ELO
+    - TrueSkill
+
+    ) -->
+    <h2>Output:</h2>
+
+    <p>(the ranking itself will appear here)</p>
+
+    <footer>
+      <p>©Copyright 2050 by nobody. All rights reversed.</p>
+    </footer>
+
+  </body>
+</html>
