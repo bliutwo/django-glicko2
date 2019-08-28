@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.template import RequestContext
 from .models import MatchMaker, RankingCreator, Player
 import operator
+from collections import OrderedDict
 
 def index(request):
     context = {}
@@ -19,7 +20,8 @@ def results(request):
     username = "dummy_challonge"
     api_key = "SL1WRtqcsDoGOiukIwv5NNXzH8OCj7tEsduDvhDC"
     raw_brackets = request.POST['user_bracket-urls']
-    brackets = raw_brackets.splitlines()
+    with_duplicates_brackets = raw_brackets.splitlines()
+    brackets = list(OrderedDict.fromkeys(with_duplicates_brackets))
     m = MatchMaker()
     match_pairs = m.get_matches(username, api_key, brackets)
     r = RankingCreator()
