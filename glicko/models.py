@@ -34,7 +34,7 @@ class MatchMaker(models.Model):
                              t_str + info_str, auth = (username, api_key))
         for line in data:
             info.append(line)
-        print("sizeof " + info_str + "_data: " + str(len(self.info)))
+        print("sizeof " + info_str + "_data: " + str(len(info)))
         return info
 
     # arguments:
@@ -84,26 +84,25 @@ class MatchMaker(models.Model):
     # returns a list of tuples (winner, loser)
     def get_matches(self, username, api_key, multiple_urls):
         all_match_pairs = []
-        with open(multiple_urls) as f:
-            for line in f:
-                if line[len(line) - 1] == '\n':
-                    url = line[:-1] # we don't want the newline char included
-                else:
-                    url = line
-                print("BRACKET: %s" % url)
-                t_str = self.parse_link(url)
-                matches = self.get_info(username, api_key, url, "/matches.json", t_str)
-                ids = self.get_info(username, api_key, url, "/participants.json", t_str)
-                matches_str = ""
-                for l in matches:
-                    matches_str += l.decode('utf-8')
-                ids_str = ""
-                for l in ids:
-                    ids_str += l.decode('utf-8')
-                match_pairs = self.parse_matches_ids_strs(matches_str, ids_str)
-                print
-                for p in match_pairs:
-                    all_match_pairs.append(p)
+        for line in multiple_urls:
+            if line[len(line) - 1] == '\n':
+                url = line[:-1] # we don't want the newline char included
+            else:
+                url = line
+            print("BRACKET: %s" % url)
+            t_str = self.parse_link(url)
+            matches = self.get_info(username, api_key, url, "/matches.json", t_str)
+            ids = self.get_info(username, api_key, url, "/participants.json", t_str)
+            matches_str = ""
+            for l in matches:
+                matches_str += l.decode('utf-8')
+            ids_str = ""
+            for l in ids:
+                ids_str += l.decode('utf-8')
+            match_pairs = self.parse_matches_ids_strs(matches_str, ids_str)
+            print
+            for p in match_pairs:
+                all_match_pairs.append(p)
         return all_match_pairs
 
 # TODO: clean for class type
@@ -149,13 +148,11 @@ class RankingCreator(models.Model):
 
     # TODO: don't output a file?
     # TODO: do i even need to return something? just change a class variable
-    def create_ratings(self, fstring):
-        f = open(fstring, 'r')
-        i = 1
+    def create_ratings(self, match_pairs):
         d = {}
-        for line in f:
-            l = line.split()
-            self.update_players(l[0], l[1], d)
+        for pair in match_pairs:
+            a, b = pair
+            self.update_players(a, b, d)
         return d
 
     def print_rankings(self, l, d):

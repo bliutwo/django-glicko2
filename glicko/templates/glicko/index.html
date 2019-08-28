@@ -16,20 +16,20 @@
 
     <form action="results" method="post">
       {% csrf_token %}
-      <div>
+      <!-- <div>
         <label for="name">Username:</label>
         <input type="text" id="name" name="user_name">
       </div>
       <div>
         <label for="apikey">API-key:</label>
         <input type="password" id="apikey" name="user_apikey">
-      </div>
+      </div> -->
       <div>
         <label for="ratingsystem">Rating System:</label>
         <select id="simple" name="simple">
           <option>Glicko-2</option>
-          <option>ELO</option>
-          <option>TrueSkill</option>
+          <!-- <option>ELO</option>
+          <option>TrueSkill</option> -->
         </select>
       </div>
       <!-- TODO: change width and height of form box using css: http://www.tagindex.net/css/form/width_height.html -->
@@ -51,9 +51,6 @@
     - TrueSkill
 
     ) -->
-    <h2>Output:</h2>
-
-    <p>(the ranking itself will appear here)</p>
 
     <footer>
       <p>©Copyright 2050 by nobody. All rights reversed.</p>

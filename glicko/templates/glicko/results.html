@@ -1,5 +1,10 @@
 <h1>Results</h1>
 
-<ul>
-    <li>{{ username }}</li>
-</ul>
+<ol>
+    <!-- <li>{{ username }}</li>
+    <li>{{ api_key }}</li>
+    <li>{{ raw_brackets }}</li> -->
+    {% for item in rankings %}
+        <li>{{ item }}</li>
+    {% endfor %}
+</ol>
