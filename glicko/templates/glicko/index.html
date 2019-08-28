@@ -16,7 +16,7 @@
 
     <p><b>HOW TO USE:</b> Please paste some <b>Challonge</b> brackets, separated by newline characters (return/enter).</p>
 
-    <p>Here is a Pastebin containing some links you can try to test it out: <a href = "https://pastebin.com/iSLtfaje" target="_blank" maxlength="1000">https://pastebin.com/iSLtfaje</a></p>
+    <p>Here is a Pastebin containing some links you can try to test it out: <a href = "https://pastebin.com/iSLtfaje" target="_blank">https://pastebin.com/iSLtfaje</a></p>
 
     <form action="results" method="post">
       {% csrf_token %}
@@ -39,7 +39,7 @@
       <!-- TODO: change width and height of form box using css: http://www.tagindex.net/css/form/width_height.html -->
       <div>
         <label for="bracket-urls">Bracket URLs:</label>
-        <textarea id="bracket-urls" name="user_bracket-urls"></textarea>
+        <textarea maxlength="1000" id="bracket-urls" name="user_bracket-urls" required></textarea>
       </div>
       <div class="button">
         <button type="submit">Get rankings!</button>
