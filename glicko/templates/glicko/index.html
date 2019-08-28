@@ -12,25 +12,10 @@
       <h1>The People's Ranking</h1>
     </header>
 
-    <!-- <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Our team</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-
-      A Search form is another commmon non-linear way to navigate through a website.
-
-      <form>
-        <input type="search" name="q" placeholder="Search query">
-        <input type="submit" value="Go!">
-      </form>
-    </nav> -->
-
     <p>Currently only works with Glicko-2 and Challonge.</p>
 
-    <form action="/my-handling-form-page" method="post">
+    <form action="results" method="post">
+      {% csrf_token %}
       <div>
         <label for="name">Username:</label>
         <input type="text" id="name" name="user_name">
@@ -39,20 +24,6 @@
         <label for="apikey">API-key:</label>
         <input type="password" id="apikey" name="user_apikey">
       </div>
-      <!-- TODO: make the radio buttons aligned -->
-      <!-- <div>
-        <label for="systemChoice1">Glicko-2</label>
-        <input type="radio" id="systemChoice1"
-         name="rankingsystem" value="glicko2" checked>
-
-        <label for="systemChoice2">ELO</label>
-        <input type="radio" id="systemChoice2"
-         name="rankingsystem" value="elo">
-
-        <label for="systemChoice3">TrueSkill</label>
-        <input type="radio" id="systemChoice3"
-         name="rankingsystem" value="trueskill">
-      </div> -->
       <div>
         <label for="ratingsystem">Rating System:</label>
         <select id="simple" name="simple">
@@ -60,11 +31,6 @@
           <option>ELO</option>
           <option>TrueSkill</option>
         </select>
-        <!-- <select multiple id="multi" name="multi">
-          <option>Glicko-2</option>
-          <option>ELO</option>
-          <option>TrueSkill</option>
-        </select> -->
       </div>
       <!-- TODO: change width and height of form box using css: http://www.tagindex.net/css/form/width_height.html -->
       <div>
