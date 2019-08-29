@@ -109,6 +109,8 @@ class MatchMaker(models.Model):
 # TODO: don't output a file?
 # TODO: do i even need to return something? just change a class variable
 class RankingCreator(models.Model):
+    player_to_dict = {}
+    timestep = 0
     def verify_file_exists(self, fstring):
         if os.path.isfile(fstring):
             return True
@@ -131,23 +133,28 @@ class RankingCreator(models.Model):
         bBool.append(0)
         d[a].update_player(aRatingList, aDevList, aBool)
         d[b].update_player(bRatingList, bDevList, bBool)
+        self.player_to_dict[a][self.timestep] = d[a].rating
+        self.player_to_dict[b][self.timestep] = d[b].rating
+        self.timestep += 1
 
     def update_players(self, a, b, d):
         if (a not in d) and (b not in d):
             d[a] = Player()
             d[b] = Player()
+            self.player_to_dict[a] = {}
+            self.player_to_dict[b] = {}
             self.match(a, b, d)
         elif (a not in d) and (b in d):
             d[a] = Player()
+            self.player_to_dict[a] = {}
             self.match(a, b, d)
         elif (a in d) and (b not in d):
             d[b] = Player()
+            self.player_to_dict[b] = {}
             self.match(a, b, d)
         else:
             self.match(a, b, d)
 
-    # TODO: don't output a file?
-    # TODO: do i even need to return something? just change a class variable
     def create_ratings(self, match_pairs):
         d = {}
         for pair in match_pairs:

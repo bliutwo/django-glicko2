@@ -9,6 +9,8 @@ from django.template import RequestContext
 from .models import MatchMaker, RankingCreator, Player
 import operator
 from collections import OrderedDict
+from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components
 
 def index(request):
     context = {}
@@ -39,4 +41,42 @@ def results(request):
         rankings.append(string)
     context= {}
     context['rankings'] = rankings
+
+    # Graph X & Y coordinates
+    # x = [ 1,2,3,4,5 ]
+    # y = [ 1,2,3,4,5 ]
+    # B = [ 10,4,3,2,1 ]
+
+    # Set up graph plot for displaying line graph
+    plot = figure(title = "Rating of Top 3 over Time", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 800)
+
+    # Plot line
+    # plot.line(x, y, line_width = 2)
+    # plot.line(x, B, line_width = 2)
+
+    # get top 3 players
+    sorted_e.reverse()
+    top_three = []
+    for i in range(3):
+        player = sorted_e.pop()
+        top_three.append(player[0])
+    # get their y axis
+    colors = ['red', 'blue', 'green']
+    for i in range(len(top_three)):
+        player = top_three[i]
+        timestep_to_rating = r.player_to_dict[player]
+        timesteps = sorted(list(timestep_to_rating.keys()))
+        ratings = []
+        for step in timesteps:
+            ratings.append(timestep_to_rating[step])
+        plot.line(timesteps, ratings, line_color = colors[i], legend=player)
+
+    plot.legend.location = "top_left"
+    plot.legend.click_policy = "hide"
+
+    # Store components
+    script, div = components(plot)
+    context['script'] = script
+    context['div'] = div
+
     return render(request, 'glicko/results.html', context)
