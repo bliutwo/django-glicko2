@@ -48,22 +48,22 @@ def results(request):
     # B = [ 10,4,3,2,1 ]
 
     # Set up graph plot for displaying line graph
-    plot = figure(title = "Rating of Top 3 over Time", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 400)
+    plot = figure(title = "Click on Player in Legend to Hide Their Line", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 400)
 
     # Plot line
     # plot.line(x, y, line_width = 2)
     # plot.line(x, B, line_width = 2)
 
     # get top 3 players
-    sorted_e.reverse()
-    top_three = []
-    for i in range(3):
-        player = sorted_e.pop()
-        top_three.append(player[0])
+    # sorted_e.reverse()
+    # top_three = []
+    # for i in range(3):
+    #     player = sorted_e.pop()
+    #     top_three.append(player[0])
     # get their y axis
-    colors = ['red', 'blue', 'green']
-    for i in range(len(top_three)):
-        player = top_three[i]
+    colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black'] * 100
+    for i in range(len(sorted_e)):
+        player = sorted_e[i][0]
         timestep_to_rating = r.player_to_dict[player]
         timesteps = sorted(list(timestep_to_rating.keys()))
         ratings = []
