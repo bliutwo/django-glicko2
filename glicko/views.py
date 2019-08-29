@@ -48,7 +48,7 @@ def results(request):
     # B = [ 10,4,3,2,1 ]
 
     # Set up graph plot for displaying line graph
-    plot = figure(title = "Rating of Top 3 over Time", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 800)
+    plot = figure(title = "Rating of Top 3 over Time", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 400)
 
     # Plot line
     # plot.line(x, y, line_width = 2)
