@@ -17,8 +17,6 @@ def index(request):
     return render(request, 'glicko/index.html', context)
 
 def results(request):
-    # username = request.POST['user_name']
-    # api_key = request.POST['user_apikey']
     username = "dummy_challonge"
     api_key = "SL1WRtqcsDoGOiukIwv5NNXzH8OCj7tEsduDvhDC"
     raw_brackets = request.POST['user_bracket-urls']
@@ -42,25 +40,9 @@ def results(request):
     context= {}
     context['rankings'] = rankings
 
-    # Graph X & Y coordinates
-    # x = [ 1,2,3,4,5 ]
-    # y = [ 1,2,3,4,5 ]
-    # B = [ 10,4,3,2,1 ]
-
     # Set up graph plot for displaying line graph
     plot = figure(title = "Click on Player in Legend to Hide Their Line", x_axis_label = 'Time', y_axis_label = "Rating", plot_width = 800, plot_height = 400)
 
-    # Plot line
-    # plot.line(x, y, line_width = 2)
-    # plot.line(x, B, line_width = 2)
-
-    # get top 3 players
-    # sorted_e.reverse()
-    # top_three = []
-    # for i in range(3):
-    #     player = sorted_e.pop()
-    #     top_three.append(player[0])
-    # get their y axis
     colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black'] * 100
     for i in range(len(sorted_e)):
         player = sorted_e[i][0]

@@ -10,7 +10,7 @@
   </head>
   <body>
     <h1>Results</h1>
-
+    {{ div | safe }}
     <ol>
       <!-- <li>{{ username }}</li>
       <li>{{ api_key }}</li>
@@ -19,6 +19,6 @@
           <li>{{ item }}</li>
       {% endfor %}
     </ol>
-    {{ div | safe }}
+    
   </body>
 </html>

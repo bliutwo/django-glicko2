@@ -105,9 +105,6 @@ class MatchMaker(models.Model):
                 all_match_pairs.append(p)
         return all_match_pairs
 
-# TODO: clean for class type
-# TODO: don't output a file?
-# TODO: do i even need to return something? just change a class variable
 class RankingCreator(models.Model):
     player_to_dict = {}
     timestep = 0
