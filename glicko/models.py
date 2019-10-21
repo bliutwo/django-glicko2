@@ -45,7 +45,7 @@ class MatchMaker(models.Model):
                              t_str + info_str, auth = (username, api_key))
         for line in data:
             info.append(line)
-        print("sizeof " + info_str + "_data: " + str(len(info)))
+        ("sizeof " + info_str + "_data: " + str(len(info)))
         return info
 
     # arguments:
@@ -102,7 +102,6 @@ class MatchMaker(models.Model):
             w = id_pairs[match[0]]
             l = id_pairs[match[1]]
             start_time = match[2]
-            print(start_time)
             pairs.append((w, l))
             self.priorities[(w,l)] = start_time
         # return pairs
@@ -128,8 +127,6 @@ class MatchMaker(models.Model):
             ids_str += l.decode('utf-8')
         match_pairs = self.parse_matches_ids_strs(matches_str, ids_str)
         for p in match_pairs:
-            # if self.priorities[p] == '':
-            #     print(p)
             self.q.put((self.priorities[p], p))
 
     # returns a list of tuples (winner, loser)
@@ -147,7 +144,6 @@ class MatchMaker(models.Model):
         while not self.q.empty():
             priority, pair = self.q.get()
             all_match_pairs.append(pair)
-        print(all_match_pairs)
         return all_match_pairs
 
 
@@ -200,9 +196,7 @@ class RankingCreator(models.Model):
 
     def create_ratings(self, match_pairs):
         d = {}
-        # print(match_pairs)
         for pair in match_pairs:
-            # print(pair)
             a, b = pair
             self.update_players(a, b, d)
         return d
