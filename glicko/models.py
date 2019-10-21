@@ -57,6 +57,8 @@ class MatchMaker(models.Model):
         # make a list of matches (winner, loser)
         match_pairs = []
         for item in m_list:
+            if item == "]":
+                break
             begin_index = item.find("winner_id")
             end_index = item.find(",\"started")
             substr = item[begin_index:end_index]
@@ -80,6 +82,7 @@ class MatchMaker(models.Model):
                 unaware = datetime.now()
                 now_aware = pytz.utc.localize(unaware)
                 match_pairs.append((winid, losid, now_aware))
+                raise Exception("You shouldn't have to get to this point. You see ']'")
         # make a dictionary of ids {id: username}
         id_pairs = {}
         for item in i_list:
@@ -125,8 +128,8 @@ class MatchMaker(models.Model):
             ids_str += l.decode('utf-8')
         match_pairs = self.parse_matches_ids_strs(matches_str, ids_str)
         for p in match_pairs:
-            if self.priorities[p] == '':
-                print(p)
+            # if self.priorities[p] == '':
+            #     print(p)
             self.q.put((self.priorities[p], p))
 
     # returns a list of tuples (winner, loser)
