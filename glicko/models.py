@@ -60,23 +60,27 @@ class MatchMaker(models.Model):
             if item == "]":
                 break
             begin_index = item.find("winner_id")
-            end_index = item.find(",\"started")
+            # end_index = item.find(",\"started")
+            end_index = len(item) - 1
             substr = item[begin_index:end_index]
             # get winner and loser id
             win_begin_index = substr.find("\":") + 2
             win_end_index = substr.find(",\"")
             winid = substr[win_begin_index:win_end_index]
             los_begin_index = substr.find("loser_id\":") + 10
-            losid = substr[los_begin_index:]
-            # get start_time
-            start_begin_index = item.find("started_at")
-            start_end_index = start_begin_index + len("started_at")
-            start_begin_index = start_end_index + 3
-            start_end_index = item.find("created_at") - 3
-            start_substr = item[start_begin_index:start_end_index]
-            if len(start_substr) > 3:
-                start_time = parse(start_substr)
-                match_pairs.append((winid, losid, start_time))
+            los_end_index = substr.find("started_at") - 2
+            losid = substr[los_begin_index:los_end_index]
+            print((winid, losid))
+            # get end_time
+            end_begin_index = item.find("completed_at")
+            end_end_index = end_begin_index + len("completed_at")
+            end_begin_index = end_end_index + 3
+            end_end_index = item.find("suggested_play_order") - 3
+            end_substr = item[end_begin_index:end_end_index]
+            print(end_substr)
+            if len(end_substr) > 3:
+                end_time = parse(end_substr)
+                match_pairs.append((winid, losid, end_time))
             else:
                 # TODO: this shouldn't be a thing!?? Why?
                 unaware = datetime.now()
@@ -101,9 +105,9 @@ class MatchMaker(models.Model):
         for match in match_pairs:
             w = id_pairs[match[0]]
             l = id_pairs[match[1]]
-            start_time = match[2]
+            end_time = match[2]
             pairs.append((w, l))
-            self.priorities[(w,l)] = start_time
+            self.priorities[(w,l)] = end_time
         # return pairs
         print("number of matches: %d\n" % len(pairs))
         return pairs
